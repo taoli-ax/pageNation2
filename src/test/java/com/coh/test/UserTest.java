@@ -58,7 +58,20 @@ public class UserTest {
         carService.findAll();
 
     }
+    @Test
+    public void testAnnotationChargeService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app2.xml");
+        ChargeService chargeService=(ChargeService)applicationContext.getBean("chargeService");
+        chargeService.doCharge();
 
+    }
+    @Test
+    public void testAnnotationAopChargeService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app3.xml");
+        ChargeService chargeService=(ChargeService)applicationContext.getBean("chargeService");
+        chargeService.doCharge();
+
+    }
 
     
 }
