@@ -2,6 +2,7 @@ package com.coh.test;
 
 import com.coh.pojo.User;
 import com.coh.service.BirdService;
+import com.coh.service.CarService;
 import com.coh.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -16,13 +17,6 @@ public class UserTest {
 
 }
     @Test
-    public void testUserService2(){
-        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
-        UserService userService=(UserService)applicationContext.getBean("userService2");
-        System.out.println(userService.getStrings());
-
-    }
-    @Test
     public void testBirdService(){
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
         BirdService birdService=(BirdService)applicationContext.getBean("birdService");
@@ -35,7 +29,16 @@ public class UserTest {
     public void testBirdService2(){
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
         BirdService birdService=(BirdService)applicationContext.getBean("birdService");
+        System.out.println(birdService);
         // TODO: 2023/3/30   构造注入没完成 
+
+    }
+    @Test
+    public void testCarService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
+        CarService carService=(CarService)applicationContext.getBean("carService");
+        carService.show();
+
 
     }
 }
