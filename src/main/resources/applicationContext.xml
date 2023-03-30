@@ -45,13 +45,14 @@
     <bean id="carService" class="com.coh.service.CarService"/>
 
     <!--aop配置-->
-    <bean id="log" class="com.coh.acept.TestAcept"/>
+    <bean id="log" class="com.coh.aspect.TestAspect"/>
     <aop:config>
     <!--expression可以写单个具体的类，也可以写通配符，注意* 后面有个空格-->
         <aop:pointcut id="car" expression="execution(* com.coh.service..*.*(..))"/>
         <aop:aspect ref="log">
             <aop:before method="start" pointcut-ref="car"/>
             <aop:after-returning method="end" pointcut-ref="car" returning="result"/>
+            <aop:after-throwing method=""/>
         </aop:aspect>
     </aop:config>
 

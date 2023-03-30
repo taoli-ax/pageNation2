@@ -41,4 +41,13 @@ public class UserTest {
 
 
     }
+
+    @Test
+    public void testErrorCarService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app.xml");
+        CarService carService=(CarService)applicationContext.getBean("carService");
+        carService.show();
+
+
+    }
 }

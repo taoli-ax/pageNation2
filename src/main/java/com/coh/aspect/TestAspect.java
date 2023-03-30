@@ -1,9 +1,9 @@
-package com.coh.acept;
+package com.coh.aspect;
 
 
 import org.aspectj.lang.JoinPoint;
 
-public class TestAcept {
+public class TestAspect {
     public void start(JoinPoint joinpoint){
         System.out.println("aop staring");
     }
