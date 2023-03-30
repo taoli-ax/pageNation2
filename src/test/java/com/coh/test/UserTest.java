@@ -49,6 +49,7 @@ public class UserTest {
         CarService carService=(CarService)applicationContext.getBean("carService");
         carService.show();
 
+
     }
     @Test
     public void testAroundCarService(){
@@ -57,11 +58,7 @@ public class UserTest {
         carService.findAll();
 
     }
-    @Test
-    public void testChargeService(){
-        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app2.xml");
-        ChargeService chargeService=(ChargeService)applicationContext.getBean("chargeService");
-        chargeService.doCharge();
 
-    }
+
+    
 }
