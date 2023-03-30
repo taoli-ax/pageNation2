@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
     <bean id="user" class="com.coh.pojo.User">
         <property name="name" value="Jack" />
         <property name="department" value="IT"/>
     </bean>
 
-    <bean id="userDao" class="com.coh.mapper.impl.UserDaoImpl"/>
-    <bean id="birdDao" class="com.coh.mapper.impl.BirdDaoImpl"/>
-
     <bean id="userService" class="com.coh.service.UserService">
         <!--其实是调用setUser的方法-->
         <property name="user" ref="user"/>
-    </bean>
-    <bean id="userService2" class="com.coh.service.UserService">
-        <!--其实是调用setUser的方法-->
-        <property name="userDao" ref="userDao"/>
     </bean>
 
     <bean id="birdService" class="com.coh.service.BirdService">
@@ -41,9 +39,22 @@
         </property>
 
     </bean>
-    <bean id="birdService" class="com.coh.service.BirdService">
-        <constructor-arg ref="birdDao"/>
-    </bean>
+
+
+
+    <bean id="carService" class="com.coh.service.CarService"/>
+
+    <!--aop配置-->
+    <bean id="log" class="com.coh.acept.TestAcept"/>
+    <aop:config>
+    <!--expression可以写单个具体的类，也可以写通配符，注意* 后面有个空格-->
+        <aop:pointcut id="car" expression="execution(* com.coh.service..*.*(..))"/>
+        <aop:aspect ref="log">
+            <aop:before method="start" pointcut-ref="car"/>
+            <aop:after-returning method="end" pointcut-ref="car" returning="result"/>
+        </aop:aspect>
+    </aop:config>
+
 
 
 </beans>
