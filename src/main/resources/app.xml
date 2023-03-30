@@ -3,21 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd
-">
-    <bean id="error" class="com.coh.aspect.ErrorAspect"/>
-    <bean id="carService" class="com.coh.service.CarService"/>
 
-    <aop:config >
-        <aop:pointcut id="err" expression="execution(* com.coh.service..*.*(..))"/>
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+
+    <bean id="carService" class="com.coh.service.CarService"/>
+    <bean id="error" class="com.coh.aspect.ErrorLog"/>
+
+    <bean id="a" class="com.coh.aspect.AroundAspect"/>
+    <aop:config>
+        <aop:pointcut id="car" expression="execution(* com.coh.service..*.*(..))"/>
         <aop:aspect ref="error">
-            <!--method中的大小写要跟类中的保持一致-->
-            <aop:after-throwing method="ErrorLog" pointcut-ref="err" throwing="throwable"/>
+            <aop:after-throwing method="show" pointcut-ref="car" throwing="throwable"/>
+        </aop:aspect>
+        <aop:aspect ref="a">
+            <aop:around method="around" pointcut-ref="car"/>
         </aop:aspect>
     </aop:config>
-
 
 
 </beans>
