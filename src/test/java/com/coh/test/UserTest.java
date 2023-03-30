@@ -3,6 +3,7 @@ package com.coh.test;
 import com.coh.pojo.User;
 import com.coh.service.BirdService;
 import com.coh.service.CarService;
+import com.coh.service.ChargeService;
 import com.coh.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -39,6 +40,28 @@ public class UserTest {
         CarService carService=(CarService)applicationContext.getBean("carService");
         carService.show();
 
+
+    }
+
+    @Test
+    public void testErrorCarService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app.xml");
+        CarService carService=(CarService)applicationContext.getBean("carService");
+        carService.show();
+
+    }
+    @Test
+    public void testAroundCarService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app.xml");
+        CarService carService=(CarService)applicationContext.getBean("carService");
+        carService.findAll();
+
+    }
+    @Test
+    public void testChargeService(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("app2.xml");
+        ChargeService chargeService=(ChargeService)applicationContext.getBean("chargeService");
+        chargeService.doCharge();
 
     }
 }
