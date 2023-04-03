@@ -52,7 +52,7 @@
         <aop:aspect ref="log">
             <aop:before method="start" pointcut-ref="car"/>
             <aop:after-returning method="end" pointcut-ref="car" returning="result"/>
-            <aop:after-throwing method=""/>
+
         </aop:aspect>
     </aop:config>
 
