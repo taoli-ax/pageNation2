@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    <script src="js/jquery-3.6.4.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <form >
+        <div class="form-row">
+            <div class="col">
+                <label for="CupName" >Cup Name</label>
+                <input type="text" name="cupname" class="form-control" id="CupName" >
+
+            </div>
+            <div class="col">
+                <label for="CupBrand" >Cup Brand</label>
+                <input class="form-control" id="CupBrand" name="cupbrand" >
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mb-2 m-1" onclick="show(1)">Confirm</button>
+    </form>
+    <table class="table  table-hover ">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">编号</th>
+            <th scope="col">名.称</th>
+            <th scope="col">品.牌</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination"></ul>
+    </nav>
+</div>
+
+</body>
+<script>
+$(document).ready(function (){
+    show(1);
+})
+function show(pageNum){
+    $.ajax({
+        url:"cup?method=queryByPageNum",
+        type:"get",
+        data:{
+            "PageNum":pageNum,
+            "CupBrand":$("#CupBrand").val(),
+            "CupName":$("#CupName").val()
+        },
+        dataType:"json",
+        success:function (msg){
+            let page=msg.page;
+            let currentPage=page.pageNum;
+            let countPage=page.countPage;
+            let ItemId=(currentPage-1)*page.pageSize+1;//选做，物品Id按顺序排列
+            console.log("current: "+countPage+" countPage: "+countPage);
+            console.log(msg.cups);
+            const tbody = msg.cups.map(item => `<tr><th  scope="row">${item.id}</th><td>${item.name}</td><td>${item.brand}</td></tr>`).join("");
+            $("#tbody").html(tbody);
+            let pageArray=[];
+            pageArray.push(msg.page);
+            console.log(pageArray);
+            const pageNation=pageArray.map(item=>`
+                                    <li class="page-item"><a class="page-link" onclick="show(1)">index</a></li>
+                                    <li class="page-item"><a class="page-link" onclick="show(${currentPage}===1?${currentPage}:${currentPage}-1)">上一页</a></li>
+                                    <li class="page-item"><a class="page-link" onclick="show(${currentPage}===${countPage}?${countPage}:${currentPage}+1)">下一页</a></li>
+                                    <li class="page-item"><a class="page-link" onclick="show(${countPage})">last</a></li>`)
+                .join("");
+            $(".pagination").html(pageNation);
+
+        }
+
+    })
+}
+</script>
+
+</html>
