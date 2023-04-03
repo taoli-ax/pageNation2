@@ -1,6 +1,3 @@
-# SMIntergation2
-再次尝试集成mybatis到sping
-
 ### 专业版Idea maven运行tomcat （一）
 1. pom.xml 替换为war项目`<packing>war</packing>`
 2. lifeCycle中的package生成war包
@@ -21,3 +18,8 @@
 3. 设置tomcat服务器 deployment为external
 4. 直接选择编译目录target下的MyProject-1.0-SNAPSHOT.war文件
 5. 部署成功！
+
+
+
+#### idea tomcat的console 乱码
+在服务器**VM options**中加入`-Dfile.encoding=UTF-8`
